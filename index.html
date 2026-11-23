@@ -131,9 +131,9 @@
     a.addEventListener('play',ui);a.addEventListener('pause',ui);
     b.addEventListener('click',e=>{e.stopPropagation();a.paused?a.play():a.pause();});
     a.play().catch(()=>{});
-    const first=()=>{if(a.paused&&!b.dataset.touched)a.play().catch(()=>{});b.dataset.touched=1;
+    const first=(e)=>{if(e&&e.target&&b.contains(e.target))return;if(a.paused&&!b.dataset.touched)a.play().catch(()=>{});b.dataset.touched=1;
       ['pointerdown','touchstart','scroll','keydown'].forEach(t=>removeEventListener(t,first));};
-    ['pointerdown','touchstart','scroll','keydown'].forEach(t=>addEventListener(t,first,{once:true,passive:true}));
+    ['pointerdown','touchstart','scroll','keydown'].forEach(t=>addEventListener(t,first,{passive:true}));
   </script>
 </body>
 </html>
